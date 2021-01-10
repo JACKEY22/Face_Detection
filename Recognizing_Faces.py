@@ -25,7 +25,9 @@ def train_model():
     joblib.dump(model, 'model1.pkl') 
 
 def Recognize_faces():
+    # load model
     model = joblib.load('model1.pkl')
+
     # compare faces
     detector = dlib.get_frontal_face_detector()
     cap = cv.VideoCapture(0)
@@ -56,10 +58,10 @@ def Recognize_faces():
                 cv.putText(image, "mom",(face.left(),face.top()),  cv.FONT_HERSHEY_COMPLEX, 2, (0,255,0), 3)
 
             cv.imshow('detecting...', image)
-            cv.waitKey(300)
+            cv.waitKey(10)
         else:
             cv.imshow('detecting...', image)
-            cv.waitKey(300)
+            cv.waitKey(10)
     cap.release()
     
 # train_model()
