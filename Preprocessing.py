@@ -25,35 +25,21 @@ def preprocess_image(before_image_dir, after_image_dir):
                 cv.imwrite(image_path_out, image)
                 count += 1 
 
-def image_to_array(after_image_dir):
-    image_array_data=[]
-    label=[]
-
+def flip_images(after_image_dir):
     for dir in os.listdir(after_image_dir):
-        for file in os.listdir(os.path.join(after_image_dir,dir)):
-            image_path = os.path.join(after_image_dir, dir, file)
+        for file in os.listdir(os.path.join(after_image_dir, dir)):
+            image_path =  os.path.join(after_image_dir, dir, file)
             image = cv.imread(image_path)
-            image = np.array(image).astype('float32')
-            image = image / 255
-            image = image.reshape(-1)
-            image_array_data.append(image)
-
-            if dir == 'others':
-                label.append(0)
-
-            elif dir == 'mine':
-                label.append(1)
-            
-            elif dir == 'mom':
-                label.append(2)
-
-    return image_array_data, label
+            image_flip = cv.flip(image, 1)
+            cv.imwrite(os.path.join(after_image_dir, dir) + '/flip_' + file, image_flip)
 
 def main():
     after_images_dir = os.path.join(os.getcwd(), 'after_images')
     if not os.path.exists(after_images_dir):
         os.mkdir(after_images_dir)
 
+
     preprocess_image('before_images','after_images')
+    flip_images(after_images_dir)
 
 main()
