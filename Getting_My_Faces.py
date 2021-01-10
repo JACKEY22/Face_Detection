@@ -1,7 +1,7 @@
 import dlib, os
 import cv2 as cv 
  
-def get_my_faces(others_count, before_mine_dir):
+def get_my_faces(others_count, before_name_dir):
     detector = dlib.get_frontal_face_detector()
     cap = cv.VideoCapture(0)
     count = 1
@@ -16,7 +16,7 @@ def get_my_faces(others_count, before_mine_dir):
 
             # get face image
             face_ = image[face.top():face.bottom(), face.left():face.right()]
-            cv.imwrite(before_mine_dir + '/' + str(count) + '.jpg', face_) 
+            cv.imwrite(before_name_dir + '/' + str(count) + '.jpg', face_) 
 
             # visualize
             cv.rectangle(image, pt1=(face.left(), face.top()), pt2=(face.right(), face.bottom()),color=(255,255,255), thickness=2, lineType=cv.LINE_AA)
@@ -36,10 +36,11 @@ def main():
     before_others_dir = os.path.join(before_images_dir, 'others')
     others_count = len(os.listdir(before_others_dir))
 
-    before_mine_dir = os.path.join(before_images_dir, 'mom')  # change 'name' into your name!
-    if not os.path.exists(before_mine_dir):
-        os.mkdir(before_mine_dir)
+    name = 'mom' # change 'name' into your name!
+    before_name_dir = os.path.join(before_images_dir, name)
+    if not os.path.exists(before_name_dir):
+        os.mkdir(before_name_dir)
     
-    get_my_faces(others_count, before_mine_dir)
+    get_my_faces(others_count, before_name_dir)
         
 main()
