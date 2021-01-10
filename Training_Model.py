@@ -45,7 +45,7 @@ def train_model(version):
     predictions = model.predict(x_test)
 
     # save model
-    joblib.dump(model, f'model_{version}.pkl') 
+    joblib.dump(model, f'./model/model_{version}.pkl') 
 
 def main():
     version = 2

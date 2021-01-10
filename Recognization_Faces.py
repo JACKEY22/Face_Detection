@@ -4,7 +4,7 @@ import numpy as np
 
 def recognize_faces(version):
     # load model
-    model = joblib.load(f'model_{version}.pkl')
+    model = joblib.load(f'./model/model_{version}.pkl')
 
     # compare faces
     detector = dlib.get_frontal_face_detector()
